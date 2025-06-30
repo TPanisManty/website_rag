@@ -35,3 +35,6 @@ htmlcov/
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# exclude vector db : 
+website_chroma/
