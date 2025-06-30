@@ -13,9 +13,9 @@ chunks = get_chunks_from_webpage(url="https://fr.wikipedia.org/wiki/Karl_Marx")
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 ## Local DB :
-# vectorstore = populate_local_db(chunks, embeddings)
+vectorstore = populate_local_db(chunks, embeddings)
 ## Distant DB :
-vectorstore = populate_distant_db(chunks, embeddings)
+# vectorstore = populate_distant_db(chunks, embeddings)
 
 llm = ChatOpenAI(
     model=os.getenv("MODEL_NAME"),
@@ -56,7 +56,6 @@ while True:
         print(res)
 
         retrieved_docs = retriever.get_relevant_documents(query)
-        print(f"\n🧩 Documents retrouvés pour « {query} » : {len(retrieved_docs)}")
         for d in retrieved_docs:
             print(d.page_content[:300])
 

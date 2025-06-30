@@ -16,7 +16,6 @@ def get_chunks_from_webpage(
     loader = WebBaseLoader(web_paths=(url,))
 
     docs = loader.load()
-    print(f"[INFO] Loaded {len(docs)} document(s)")
 
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
