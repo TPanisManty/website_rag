@@ -23,6 +23,5 @@ def get_chunks_from_webpage(
         chunk_overlap=chunk_overlap,
     )
     chunks = text_splitter.split_documents(docs)
-    print(f"[INFO] Split into {len(chunks)} chunks")
 
     return chunks

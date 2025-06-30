@@ -1,21 +1,24 @@
 import os
 from langchain.embeddings import HuggingFaceEmbeddings
-
 from langchain_openai import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 from langchain.embeddings import HuggingFaceEmbeddings
-from chroma import populate
+from chroma import populate_local_db
 from parse_web_page import get_chunks_from_webpage
+from psql_helpers import populate_distant_db
 
 
 chunks = get_chunks_from_webpage(url="https://fr.wikipedia.org/wiki/Karl_Marx")
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-vectorstore = populate(chunks, embeddings)
 
+## Local DB :
+# vectorstore = populate_local_db(chunks, embeddings)
+## Distant DB :
+vectorstore = populate_distant_db(chunks, embeddings)
 
 llm = ChatOpenAI(
-    model="llama-3.3-70b-instruct",
+    model=os.getenv("MODEL_NAME"),
     api_key=os.getenv("LLM_API_KEY"),
     base_url=os.getenv("LLM_API_URL"),
 )

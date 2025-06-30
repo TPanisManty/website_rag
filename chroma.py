@@ -1,7 +1,7 @@
 from langchain.vectorstores import Chroma
 
 
-def populate(chunks, embeddings):
+def populate_local_db(chunks, embeddings):
     # Crée et persiste le vecteur
     vectorstore = Chroma.from_documents(
         chunks, embeddings, persist_directory="website_chroma"
